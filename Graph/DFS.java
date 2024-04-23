@@ -1,5 +1,16 @@
 import java.util.*;
-public class createGraph {
+
+public class DFS {
+    public static void dfs(ArrayList<ArrayList<Integer>> adj, int curr, boolean visited[]) {
+        System.out.print(curr+" ");
+        visited[curr] = true;
+        for(int i = 0; i < adj.get(curr).size(); i++) {
+            int next = adj.get(curr).get(i);
+            if(!visited[next]) {
+                dfs(adj, next, visited);
+            }
+        }
+    }
     public static void main(String[] args) {
         int graph[][] = {{1, 2}, {1, 3}, {2, 4}, {2, 5}, {3, 4}, {4, 5}};
         ArrayList<ArrayList<Integer>> adj = new ArrayList<ArrayList<Integer>>();
@@ -14,13 +25,7 @@ public class createGraph {
             adj.get(dest).add(src); 
         }
 
-          // Print adjacency list
-        for (int i = 1; i < adj.size(); i++) {
-            System.out.print("Node " + i + " is connected to: ");
-            for (int neighbor : adj.get(i)) {
-                System.out.print(neighbor + " ");
-            }
-            System.out.println();
-        }
+        boolean visited[] = new boolean[adj.size()];
+        dfs(adj, 1, visited);
     }
 }
